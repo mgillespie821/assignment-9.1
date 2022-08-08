@@ -1,0 +1,41 @@
+# Megan Gillespie
+# Introduction into Programming
+# 8/7/2022
+# The purpose of my program is to have a user create a directory and then create a file #within that directory. The program will them store the user's name, address, and phone #number in that file. If a directory name already exists, they can add to the existing #files, or create a new file within that directory. 
+
+import os
+import os.path
+
+path = os.curdir
+print(path) # for debug
+directory = str(input('Enter a name for your directory: ').strip()) #Prompting the user for directory
+path = path + os.sep + directory
+#print(path) # for debug
+#print(os.path) # debug 
+
+try:
+  os.mkdir(path)
+except FileExistsError:
+  print("Directory " + path + " exists")
+except:
+  print("unknown error")
+  exit(1)
+else:
+  print("Directory '% s' created" % directory)
+
+fileName = str(input("What is the name of your file? ").strip())
+print("The file name is :" + fileName)
+
+nameInput = str(input("Please enter name: ").strip())
+addressInput = str(input("Please enter address: ").strip())
+phoneNumInput = str(input("Please enter phone number: ").strip())
+fileName = path + os.sep + fileName
+
+with open (fileName, 'a') as f:
+  data = (nameInput + "," + addressInput + "," + phoneNumInput + "\n")
+  f.write(data)
+#print(data)
+
+with open(fileName, 'r') as f:
+  for line in f:
+    print(line, end = '')
